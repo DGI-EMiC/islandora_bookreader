@@ -4632,7 +4632,7 @@ BookReader.prototype._getPageHeight = function(index) {
 // Returns the page URI or transparent image if out of range
 BookReader.prototype._getPageURI = function(index, reduce, rotate) {
     if (index < 0 || index >= this.numLeafs) { // Synthesize page
-        return this.imagesBaseURL + "/transparent.png";
+        return this.imagesBaseURL + "../islandora_bookviewer/images/transparent.png";
     }
 
     if ('undefined' == typeof(reduce)) {

@@ -100,7 +100,7 @@ function islandora_bookviewer_form_islandora_book_admin_settings_alter(&$form, &
   $confirmation_message = ($djatoka_avail ? '<img src="' . url('misc/watchdog-ok.png') . '"/>'
           . t('Djatoka url is valid.') : '<img src="'
           . url('misc/watchdog-error.png') . '"/> '
-          . t('Unable to locate djatoka installtion at !tile_path</p>', array('!tile_path' => $djatoka_path)));
+          . t('Unable to locate djatoka installtion at !path</p>', array('!path' => $djatoka_path)));
 
   $form['book_ahah_wrapper']['islandora_djatoka_path'] = array(
     '#type' => 'textfield',
@@ -136,7 +136,8 @@ function islandora_bookviewer_setup($pid) {
   $islandora_prefix = $base_url . '/fedora/repository/';
   $fedora_prefix = variable_get('fedora_base_url', 'http:8080/fedora');
   $book_pids = get_sorted_pages($pid);
-  $filename = $djatoka_prefix . "$fedora_prefix/objects/" . $book_pids[count($book_pids)] . "/datastreams/JP2/content&svc_id=info:lanl-repo/svc/getMetadata";
+  $book_pids = array_values($book_pids);
+  $filename = $djatoka_prefix . "$fedora_prefix/objects/" . $book_pids[count($book_pids) -1] . "/datastreams/JP2/content&svc_id=info:lanl-repo/svc/getMetadata";
   $pageData = json_decode(file_get_contents($filename));
   $configs = array();
   $configs['DJATOKA_PREFIX'] = $djatoka_prefix;
